@@ -10,14 +10,17 @@ const Timer = () =>{
             <Button 
             title="2 minutes"
             time="120"
+            
             />
             <Button 
             title="5  minutes"
             time="300"
+            
             />
             <Button 
             title="10 minutes"
             time="600"
+          
             />
         </div>
         )
