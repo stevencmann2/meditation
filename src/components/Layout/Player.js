@@ -1,21 +1,29 @@
-import React, { useRef } from 'react';
-import Audio from '../Design/Audio'
+import React, { useRef, useState } from 'react';
+import ReactHowler from 'react-howler'
 import '../../assets/css/style.css';
 
 
 const Player = () =>{
 
-    const outlineRef = useRef(null);
-   
-    // const outlineLength = outline.getTotalLength()
+    const [isPlaying, setIsPlaying] = useState(false)
+    const [audioFile, setaudioFile] = useState("rain.mp3")
 
-    console.log(outlineRef)
+    const playHandler = e =>{
+        e.preventDefault()
+        console.log("clicked the play button")
+        setIsPlaying(!isPlaying)
+        
+    }
+    
+    
     return(
+        <React.Fragment>
         <div className="player-container">
-            <Audio 
-                source="rain.mp3"
-            />
-            <img src={require("../../assets/images/svg/play.svg")} alt="play" className="play" />
+            <img 
+                className="play"
+                src={require("../../assets/images/svg/play.svg")} 
+                alt="play"
+                onClick={playHandler}  />
             <svg 
                 className="track-outline"
                 width={453}
@@ -43,7 +51,6 @@ const Player = () =>{
                 
             >
                 <circle 
-                    ref={outlineRef}
                     cx={226.5} 
                     cy={226.5} 
                     r={216.5}
@@ -53,11 +60,20 @@ const Player = () =>{
                 />
                
             </svg>
-            <h3 className="time-display">0:00</h3>
-
+            <h3 className="time-display">0:00</h3> 
         </div>
+        <ReactHowler
+                src={require(`../../assets/sounds/${audioFile}`)}
+                playing={isPlaying}
+            />
+        </React.Fragment>
         )
 
 }
+
+       // <audio 
+            //     className="song" 
+            //     src={require(`../../assets/sounds/rain.mp3`)} 
+            //     />
 
 export default Player;
