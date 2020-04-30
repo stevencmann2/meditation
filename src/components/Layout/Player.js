@@ -5,23 +5,43 @@ import '../../assets/css/style.css';
 
 const Player = () =>{
 
+    const playerRef = useRef();
+    // plays or pauses music
     const [isPlaying, setIsPlaying] = useState(false)
+    // cha ges icon from play to pause
+    const [playIcon, setPlayIcon] = useState('/play.svg')
+    // source of audio file being played 
     const [audioFile, setaudioFile] = useState("rain.mp3")
+    //displays time based on button click
+    const [timeDisplay, setTimeDisplay] = useState('0:00')
 
+    // clickhandler for play button
     const playHandler = e =>{
         e.preventDefault()
-        console.log("clicked the play button")
         setIsPlaying(!isPlaying)
+        logoHandler()
+        console.log(playerRef.current._howler._duration)
         
     }
-    
-    
+    // logic for changing play button to pause button
+    const logoHandler =() =>{
+        if (isPlaying){
+            setPlayIcon('/play.svg')
+            
+            }else{
+            setPlayIcon('/pause.svg')
+        }
+    }
+
+    // console.log(playerRef.current)
+   
+
     return(
         <React.Fragment>
         <div className="player-container">
             <img 
                 className="play"
-                src={require("../../assets/images/svg/play.svg")} 
+                src={require(`../../assets/images/svg${playIcon}`)} 
                 alt="play"
                 onClick={playHandler}  />
             <svg 
@@ -60,12 +80,15 @@ const Player = () =>{
                 />
                
             </svg>
-            <h3 className="time-display">0:00</h3> 
+            <h3 className="time-display">{timeDisplay}</h3> 
         </div>
         <ReactHowler
                 src={require(`../../assets/sounds/${audioFile}`)}
                 playing={isPlaying}
+                ref={playerRef}
             />
+
+            
         </React.Fragment>
         )
 

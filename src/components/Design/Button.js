@@ -6,6 +6,7 @@ const Button = props =>{
 
     return(
     <button 
+      onClick={props.onClick}
       data-time={props.time} 
       data-sound={props.sound}
       data-video={props.video}
