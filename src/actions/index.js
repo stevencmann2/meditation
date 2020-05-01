@@ -14,3 +14,10 @@ export const selectedSound = (sound) =>
     }
 }
 
+export const isPlaying = () =>
+{
+    return {
+        type: 'PLAYING',
+    }
+}
+

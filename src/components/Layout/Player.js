@@ -1,31 +1,37 @@
 import React, { useRef, useState } from 'react';
 import ReactHowler from 'react-howler'
 import '../../assets/css/style.css';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { isPlaying } from '../../actions'
 
 const Player = () =>{
 
+    
+    const TimeSelected = useSelector(state=> state.TimeSelected);
+    const Playing = useSelector(state=> state.isPlaying);
+    const dispatch = useDispatch();
     const playerRef = useRef();
     // plays or pauses music
-    const [isPlaying, setIsPlaying] = useState(false)
+    // const [isPlaying, setIsPlaying] = useState(false)
     // cha ges icon from play to pause
     const [playIcon, setPlayIcon] = useState('/play.svg')
     // source of audio file being played 
     const [audioFile, setaudioFile] = useState("rain.mp3")
-    //displays time based on button click
-    const [timeDisplay, setTimeDisplay] = useState('0:00')
+   
+    
+    
 
     // clickhandler for play button
     const playHandler = e =>{
         e.preventDefault()
-        setIsPlaying(!isPlaying)
+        dispatch(isPlaying())
         logoHandler()
         console.log(playerRef.current._howler._duration)
         
     }
     // logic for changing play button to pause button
     const logoHandler =() =>{
-        if (isPlaying){
+        if (Playing){
             setPlayIcon('/play.svg')
             
             }else{
@@ -80,11 +86,11 @@ const Player = () =>{
                 />
                
             </svg>
-            <h3 className="time-display">{timeDisplay}</h3> 
+            <h3 className="time-display">{TimeSelected}</h3> 
         </div>
         <ReactHowler
                 src={require(`../../assets/sounds/${audioFile}`)}
-                playing={isPlaying}
+                playing={Playing}
                 ref={playerRef}
             />
 

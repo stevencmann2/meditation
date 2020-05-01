@@ -12,7 +12,7 @@ const Timer = () =>{
 
     return(
         <div className="time-select">
-            <div>{TimeSelected.toString()}</div>
+            
             <Button 
             title="2 minutes"
             time="120"
